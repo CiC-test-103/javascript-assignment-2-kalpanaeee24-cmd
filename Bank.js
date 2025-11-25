@@ -4,7 +4,11 @@ class Bank {
     constructor() {
         this.accounts = []; // Stores all accounts in the bank
     }
-
+    createAccount(name,initialDeposit){
+        const newAccount = new Account(name,initialDeposit);
+        this.accounts.push(newAccount);
+        return newAccount;
+    }
     // Add methods here:
     // Example: createAccount(name, initialDeposit)
 
@@ -17,7 +21,39 @@ class Account {
         this.balance = balance; // Initial balance (default is 0)
         this.transactionHistory = []; // Keeps a record of all transactions
     }
+     deposit(amount){
+        this.balance+=amount;
+        this.transactionHistory.push(`Transaction type:"Deposit",Amount:${amount}`);
+        return;
+     }
+     withdraw(amount){
+        if(amount > this.balance){
+            console.log("Insufficient funds");
+            return;
 
+        }else{
+        this.balance-=amount;
+        this.transactionHistory.push(`Transaction type:"Withdrawal",Amount:${amount}`);
+        return;
+        
+        }
+     }
+     transfer(amount,recipientAccount){
+         if(amount > this.balance){
+            console.log("Insufficient funds");
+            return;
+         }else{
+            recipientAccount.balance+=amount;
+            recipientAccount.transactionHistory.push(`Transaction type:"received",Amount:${amount},from:${this.name}`);
+            this.balance-=amount;
+            this.transactionHistory.push(`Transaction type:"Transferred",Amount:${amount},to:${recipientAccount.name}`);
+            return;
+         }     
+     }
+     checkBalance(){
+         return `Account holder's name:${this.name},Available balance:${this.balance}`;
+     }
+     
     // Add methods here:
     // Example: deposit(amount) 
     // example data to be stored in transactionHistory { transactionType: 'Deposit', amount: 500 }
@@ -66,7 +102,7 @@ function testBankOperations() {
     };
 }
 
-module.exports = testBankOperations;
+module.export = testBankOperations;
 
 //<-------------------------------DO NOT WRITE ABOVE THIS LINE------------------------------>
 
