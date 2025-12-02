@@ -102,7 +102,7 @@ function testBankOperations() {
     };
 }
 
-module.export = testBankOperations;
+module.exports = testBankOperations;
 
 //<-------------------------------DO NOT WRITE ABOVE THIS LINE------------------------------>
 
